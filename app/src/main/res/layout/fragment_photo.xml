@@ -3,7 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PhotoFragment">
+    tools:context=".ui.fragments.PhotoFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/photoImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/photo" />
+
+    <com.example.objectsrecognizer.ui.views.OverlayView
+        android:id="@+id/photoOverlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

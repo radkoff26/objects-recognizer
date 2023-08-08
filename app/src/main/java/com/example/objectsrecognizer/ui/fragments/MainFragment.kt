@@ -1,4 +1,4 @@
-package com.example.objectsrecognizer.ui
+package com.example.objectsrecognizer.ui.fragments
 
 import android.net.Uri
 import android.os.Bundle

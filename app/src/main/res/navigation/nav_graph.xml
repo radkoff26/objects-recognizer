@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.objectsrecognizer.ui.MainFragment"
+        android:name="com.example.objectsrecognizer.ui.fragments.MainFragment"
         android:label="Main Fragment">
 
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.objectsrecognizer.ui.CameraFragment"
+        android:name="com.example.objectsrecognizer.ui.fragments.CameraFragment"
         android:label="Camera Fragment"/>
 
 </navigation>
