@@ -16,4 +16,8 @@ class PhotoFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_photo, container, false)
     }
+
+    companion object {
+        const val PHOTO_BYTES_ARGUMENT = "PHOTO_BYTES_ARGUMENT"
+    }
 }

@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.objectsrecognizer.ui.MainFragment"
+        android:label="Main Fragment">
+
+        <action
+            android:id="@+id/mainFragmentToCameraFragment"
+            app:destination="@id/cameraFragment"/>
+
+        <action
+            android:id="@+id/mainFragmentToPhotoFragment"
+            app:destination="@id/cameraFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.objectsrecognizer.ui.CameraFragment"
+        android:label="Camera Fragment"/>
 
 </navigation>
