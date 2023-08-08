@@ -41,6 +41,7 @@ dependencies {
     def constraintLayoutVersion = "2.1.4"
     def navVersion = "2.6.0"
     def cameraxVersion = "1.2.3"
+    def tensorFlowLiteVersion = "0.4.2"
 
     // App Compat
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
@@ -64,4 +65,7 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    // Tensor Flow
+    implementation "org.tensorflow:tensorflow-lite-task-vision-play-services:$tensorFlowLiteVersion"
 }
