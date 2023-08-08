@@ -35,6 +35,7 @@ android {
 
 dependencies {
 
+    // Versions
     def coreKtxVersion = "1.10.1"
     def appCompatVersion = "1.6.1"
     def materialVersion = "1.9.0"
@@ -42,6 +43,8 @@ dependencies {
     def navVersion = "2.6.0"
     def cameraxVersion = "1.2.3"
     def tensorFlowLiteVersion = "0.4.2"
+    def lifecycleVersion = "2.4.0"
+    def skeletonLayoutVersion = "4.0.0"
 
     // App Compat
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
@@ -59,12 +62,18 @@ dependencies {
     // Core Ktx
     implementation "androidx.core:core-ktx:$coreKtxVersion"
 
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
     // Material
     implementation "com.google.android.material:material:$materialVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    // SkeletonLayout
+    implementation "com.faltenreich:skeletonlayout:$skeletonLayoutVersion"
 
     // Tensor Flow
     implementation "org.tensorflow:tensorflow-lite-task-vision-play-services:$tensorFlowLiteVersion"

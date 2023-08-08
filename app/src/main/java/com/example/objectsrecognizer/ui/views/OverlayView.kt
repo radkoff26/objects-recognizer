@@ -101,11 +101,11 @@ internal class OverlayView @JvmOverloads constructor(
 
     /* Objects Setting Functions */
     fun setImageObjectsAndInvalidate(
-        detectionResults: List<ImageObject>,
+        imageObjectList: List<ImageObject>,
         imageHeight: Int,
         imageWidth: Int
     ) {
-        imageObjects = detectionResults
+        imageObjects = imageObjectList
 
         updateDimensions(imageHeight, imageWidth)
 

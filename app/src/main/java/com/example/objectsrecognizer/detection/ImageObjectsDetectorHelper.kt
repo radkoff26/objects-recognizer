@@ -25,6 +25,10 @@ class ImageObjectsDetectorHelper(
 
     private var objectDetector: ObjectDetector? = null
 
+    fun clearObjectDetector() {
+        objectDetector = null
+    }
+
     /* Setting Object Detector Function */
     private fun setupObjectDetector() {
         if (!TfLiteVision.isInitialized()) {

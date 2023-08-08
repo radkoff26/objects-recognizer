@@ -15,7 +15,7 @@
 
         <action
             android:id="@+id/mainFragmentToPhotoFragment"
-            app:destination="@id/cameraFragment"/>
+            app:destination="@id/photoFragment"/>
 
     </fragment>
 
@@ -23,5 +23,10 @@
         android:id="@+id/cameraFragment"
         android:name="com.example.objectsrecognizer.ui.fragments.CameraFragment"
         android:label="Camera Fragment"/>
+
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.example.objectsrecognizer.ui.fragments.PhotoFragment"
+        android:label="Photo Fragment"/>
 
 </navigation>
