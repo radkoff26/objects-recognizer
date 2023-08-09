@@ -59,6 +59,11 @@ class PhotoFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     /* Init */
     private fun initUI() {
         binding.root.showSkeleton()
