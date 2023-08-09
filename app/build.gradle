@@ -42,7 +42,7 @@ dependencies {
     def constraintLayoutVersion = "2.1.4"
     def navVersion = "2.6.0"
     def cameraxVersion = "1.2.3"
-    def tensorFlowLiteVersion = "0.4.2"
+    def tensorFlowLiteTaskGooglePlayVersion = "0.4.2"
     def lifecycleVersion = "2.4.0"
     def skeletonLayoutVersion = "4.0.0"
 
@@ -76,5 +76,5 @@ dependencies {
     implementation "com.faltenreich:skeletonlayout:$skeletonLayoutVersion"
 
     // Tensor Flow
-    implementation "org.tensorflow:tensorflow-lite-task-vision-play-services:$tensorFlowLiteVersion"
+    api "org.tensorflow:tensorflow-lite-task-vision-play-services:$tensorFlowLiteTaskGooglePlayVersion"
 }

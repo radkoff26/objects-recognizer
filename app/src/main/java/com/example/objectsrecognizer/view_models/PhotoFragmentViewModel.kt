@@ -3,7 +3,6 @@ package com.example.objectsrecognizer.view_models
 import android.graphics.Bitmap
 import androidx.lifecycle.*
 import com.example.objectsrecognizer.detection.ImageObjectsDetectorHelper
-import com.example.objectsrecognizer.utils.BytesUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,14 +14,8 @@ class PhotoFragmentViewModel(
     val detectionResultLiveData: LiveData<ImageObjectsDetectorHelper.DetectionResult?> =
         _detectionResultLiveData
 
-    override fun onCleared() {
-        super.onCleared()
-        objectsDetectorHelper.clearObjectDetector()
-    }
-
-    fun detectImageByImageBytes(imageBytes: ByteArray) {
+    fun detectObjectsOnPhotoByPhotoBitmap(bitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
-            val bitmap = BytesUtils.createBitmapFromByteArray(imageBytes)
             detectObjectsWithBitmapAndUpdateLiveData(bitmap)
         }
     }

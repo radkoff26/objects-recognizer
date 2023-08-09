@@ -2,19 +2,15 @@ package com.example.objectsrecognizer.ui.fragments
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.objectsrecognizer.R
 import com.example.objectsrecognizer.databinding.FragmentMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -43,7 +39,6 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
-
     /* Init */
     private fun initListeners() {
         initTakePhotoButtonListener()
@@ -53,7 +48,7 @@ class MainFragment : Fragment() {
     private fun initPhotoChooseLauncher() {
         photoChooseLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             if (it != null) {
-                openPhotoFragmentWithBytesOfImageByUriOnLifecycleScope(it)
+                openPhotoFragmentWithImageUri(it)
             }
         }
     }
@@ -76,37 +71,16 @@ class MainFragment : Fragment() {
         photoChooseLauncher.launch(IMAGE_TYPE)
     }
 
-    private fun openPhotoFragmentWithBytesOfImageByUriOnLifecycleScope(uri: Uri) {
-        lifecycleScope.launch {
-            openPhotoFragmentWithBytesOfImageByUri(uri)
-        }
-    }
-
-    private suspend fun openPhotoFragmentWithBytesOfImageByUri(uri: Uri) {
-        val imageBytes = getBytesOfImageByUri(uri) ?: return
-        openPhotoFragmentWithBytes(imageBytes)
-    }
-
-    private suspend fun getBytesOfImageByUri(uri: Uri): ByteArray? = withContext(Dispatchers.IO) {
-        openContentInputStreamByUri(uri).use { inputStream ->
-            if (inputStream == null) {
-                return@withContext null
-            }
-            return@withContext inputStream.readBytes()
-        }
-    }
-
-    private fun openContentInputStreamByUri(uri: Uri) =
-        requireContext().contentResolver.openInputStream(uri)
-
     /* Open Photo Fragment Functions */
-    private fun openPhotoFragmentWithBytes(bytes: ByteArray) {
-        val photoFragmentArguments = instantiatePhotoFragmentArguments(bytes)
+    private fun openPhotoFragmentWithImageUri(uri: Uri) {
+        val photoFragmentArguments = instantiatePhotoFragmentArguments(uri.toString())
         findNavController().navigate(R.id.mainFragmentToPhotoFragment, photoFragmentArguments)
     }
 
-    private fun instantiatePhotoFragmentArguments(bytes: ByteArray): Bundle = Bundle().apply {
-        putByteArray(PhotoFragment.PHOTO_BYTES_ARGUMENT, bytes)
+    private fun instantiatePhotoFragmentArguments(stringUri: String): Bundle = Bundle().apply {
+        // The photo hasn't just been taken, so false is passed
+        putBoolean(PhotoFragment.IS_TAKEN_PHOTO_ARGUMENT, false)
+        putString(PhotoFragment.GALLERY_PHOTO_URI_ARGUMENT, stringUri)
     }
 
     /* Open Camera Fragment Functions */

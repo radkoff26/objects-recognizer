@@ -59,10 +59,10 @@ internal class OverlayView @JvmOverloads constructor(
     private fun drawImageObjectOnCanvas(imageObject: ImageObject, canvas: Canvas) {
         // Object bounds relatively to image
         val objectBoundsOnView = ObjectBounds(
-            this.top + imageObject.bounds.top * scaleFactorY,
-            this.top + imageObject.bounds.bottom * scaleFactorY,
             this.left + imageObject.bounds.left * scaleFactorX,
-            this.left + imageObject.bounds.right * scaleFactorX
+            this.top + imageObject.bounds.top * scaleFactorY,
+            this.left + imageObject.bounds.right * scaleFactorX,
+            this.top + imageObject.bounds.bottom * scaleFactorY
         )
 
         drawImageObjectBox(objectBoundsOnView, canvas)
