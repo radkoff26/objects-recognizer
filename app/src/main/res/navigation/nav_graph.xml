@@ -11,22 +11,27 @@
 
         <action
             android:id="@+id/mainFragmentToCameraFragment"
-            app:destination="@id/cameraFragment"/>
+            app:destination="@id/cameraFragment" />
 
         <action
             android:id="@+id/mainFragmentToPhotoFragment"
-            app:destination="@id/photoFragment"/>
+            app:destination="@id/photoFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.example.objectsrecognizer.ui.fragments.CameraFragment"
-        android:label="Camera Fragment"/>
+        android:label="Camera Fragment">
+
+        <action
+            android:id="@+id/cameraFragmentToPhotoFragment"
+            app:destination="@id/photoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/photoFragment"
         android:name="com.example.objectsrecognizer.ui.fragments.PhotoFragment"
-        android:label="Photo Fragment"/>
+        android:label="Photo Fragment" />
 
 </navigation>

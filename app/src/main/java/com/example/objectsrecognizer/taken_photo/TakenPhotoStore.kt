@@ -3,9 +3,7 @@ package com.example.objectsrecognizer.taken_photo
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 
 /**
  * Class necessary for temporary storing of taken photo. This is used for transferring taken photo
@@ -23,30 +21,19 @@ class TakenPhotoStore(
         return getImageBitmapIfPresentOrNull(cacheDir)
     }
 
-    /* Image Store */
-    fun storeImageInCacheDir(bitmap: Bitmap) {
+    /* Image Management */
+    /**
+     * Function needed for creating new empty file for the taken photo.
+     * @return instance of an empty [File] in which photo can be written.
+     * */
+    fun getNewSavedTakenPhotoFileToWriteTo(): File {
         val cacheDir = context.cacheDir
-        val bitmapBytes = getBytesFromBitmap(bitmap)
-        manageMediaDirAndSaveBytesToTakenPhotoFile(bitmapBytes, cacheDir)
-    }
-
-    private fun getBytesFromBitmap(bitmap: Bitmap): ByteArray {
-        return openOutputStreamForBitmap(bitmap).use {
-            return@use it.toByteArray()
-        }
-    }
-
-    private fun manageMediaDirAndSaveBytesToTakenPhotoFile(bytes: ByteArray, cacheDir: File) {
         createMediaDirIfNecessary(cacheDir)
         removeTakenPhotoFileIfExists(cacheDir)
-        createTakenPhotoFileOutputStream(cacheDir).use {
-            it.write(bytes)
-        }
-    }
-
-    private fun createTakenPhotoFileOutputStream(cacheDir: File): FileOutputStream {
         val pathToTakenPhotoFile = getPathToTakenPhotoFile(cacheDir)
-        return FileOutputStream(pathToTakenPhotoFile)
+        return File(pathToTakenPhotoFile).apply {
+            createNewFile()
+        }
     }
 
     private fun removeTakenPhotoFileIfExists(cacheDir: File) {
@@ -62,12 +49,6 @@ class TakenPhotoStore(
 
     private fun getPathToMediaDir(cacheDir: File): String = "$cacheDir/$MEDIA_CACHE_DIR"
 
-    private fun openOutputStreamForBitmap(bitmap: Bitmap): ByteArrayOutputStream {
-        return ByteArrayOutputStream().apply {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, this)
-        }
-    }
-
     private fun createMediaDirIfNecessary(cacheDir: File) {
         if (isMediaDirAbsent(cacheDir)) {
             createMediaDirInCacheDir(cacheDir)
@@ -75,16 +56,23 @@ class TakenPhotoStore(
     }
 
     private fun getImageBitmapIfPresentOrNull(cacheDir: File): Bitmap? {
-        val file = getMediaFileInCacheDir(cacheDir) ?: return null
+        val file = getTakenPhotoFileInCacheDir(cacheDir) ?: return null
         return file.inputStream().use {
             return@use BitmapFactory.decodeStream(it)
         }
     }
 
-    private fun getMediaFileInCacheDir(cacheDir: File): File? =
-        cacheDir.listFiles()!!.find {
+    private fun getTakenPhotoFileInCacheDir(cacheDir: File): File? {
+        val mediaDir = getMediaDir(cacheDir)
+        return mediaDir.listFiles()!!.find {
             it.isFile && it.name == TAKEN_PHOTO_FILENAME
         }
+    }
+
+    private fun getMediaDir(cacheDir: File): File {
+        val pathToMediaDir = getPathToMediaDir(cacheDir)
+        return File(pathToMediaDir)
+    }
 
     private fun isMediaDirAbsent(cacheDir: File): Boolean {
         val cacheFiles = cacheDir.listFiles()!!
